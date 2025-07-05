@@ -2,13 +2,16 @@
     import type { Post } from '@/types/post'
     import PostItem from './PostItem.vue';
     
-    defineProps<{blogArray: Post[]}>();
+    defineProps<{
+        blogArray: Post[],
+        isLoading: boolean
+    }>();
 </script>
 
 <template>
     <section class="posts">
         <div class="container">
-            <div class="posts-list" v-if="blogArray.length > 0">
+            <div class="posts-list" v-if="!isLoading">
                 <post-item v-for="postItem in blogArray" :post="postItem" :key="postItem.id"></post-item>
             </div>
             <div class="loading" v-else>Loading...</div>
@@ -44,6 +47,11 @@
     }
     100%{
         opacity: 0.5;
+    }
+ }
+ @media screen and (max-width: 1000px) {
+    .posts-list{
+        grid-template-columns: repeat(2, 1fr);
     }
  }
 </style>
